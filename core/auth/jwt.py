@@ -26,8 +26,6 @@ def verify_token(token: str) -> Optional[Claims]:
             token=token, key=settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM]
         )
         email = payload.get("sub", None)
-        if email is None:
-            return None
-        return Claims(email=email)
+        return None if email is None else Claims(email=email)
     except JWTError:
         return None

@@ -15,7 +15,7 @@ class AuthBearer(HTTPBearer):
         credentials: Optional[HTTPAuthorizationCredentials] = await super().__call__(
             request
         )
-        if credentials and not credentials.scheme.lower() == "bearer":
+        if credentials and credentials.scheme.lower() != "bearer":
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="invalid authorization schema",
